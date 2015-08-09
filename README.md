@@ -85,9 +85,13 @@ The `--set` parameters are for overridding those set in `ffl_data_scraper\settin
 
 A lot message will be written out to `/path/to/repo/ffl_data_scraper.log`, and you should be able to verify that the persistence to the postgres database worked by running
 
+```bash
+# in bash
+$ psql -u ffldata
+```
 ```sql
-psql -u ffldata
-SELECT count(*) FROM raw_data WHERE ffl_source = 'espn';
+-- in psql
+> SELECT count(*) FROM raw_data WHERE ffl_source = 'espn';
 ```
 
 and having approximately 1660 rows.
