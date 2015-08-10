@@ -45,7 +45,7 @@ def wipe_raw_data(source=None):
     with connect() as conn:
         with conn.cursor() as cur:
             if source:
-                cur.execute('DELETE FROM raw_data WHERE source = %s ;', source)
+                cur.execute('DELETE FROM raw_data WHERE ffl_source = %s ;', (source,))
             else:
                 cur.execute('DELETE FROM raw_data;')
             logger.debug("status: {}".format(conn.status))
