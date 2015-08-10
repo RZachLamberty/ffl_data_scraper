@@ -40,9 +40,12 @@ def connect():
     )
 
 
-def wipe_raw_data():
+def wipe_raw_data(source=None):
     logger.warning("DROPPING raw_data table!!")
     with connect() as conn:
         with conn.cursor() as cur:
-            cur.execute('DELETE FROM raw_data;')
+            if source:
+                cur.execute('DELETE FROM raw_data WHERE source = %s ;', source)
+            else:
+                cur.execute('DELETE FROM raw_data;')
             logger.debug("status: {}".format(conn.status))

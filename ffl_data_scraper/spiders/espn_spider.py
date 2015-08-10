@@ -44,7 +44,7 @@ class EspnSpider(scrapy.Spider):
             "http://games.espn.go.com/ffl/tools/projections?&leagueId={}".format(self.leagueid)
         ]
         if wipeTable:
-            wipe_raw_data()
+            wipe_raw_data(source=self.name)
 
     def parse(self, response):
         playerrows = response.xpath('//tr[contains(@class, "pncPlayerRow")]')
