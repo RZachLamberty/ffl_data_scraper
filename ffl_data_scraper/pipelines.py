@@ -7,8 +7,8 @@
 
 import datetime
 import logging
-import psql
 
+from .psql import connect
 from scrapy.conf import settings
 
 
@@ -20,7 +20,7 @@ class FflDataScraperPipeline(object):
         pass
 
     def open_spider(self, spider):
-        self.conn = psql.connect()
+        self.conn = connect()
 
     def close_spider(self, spider):
         self.conn.close()

@@ -38,7 +38,9 @@ class EspnSpider(scrapy.Spider):
 
     def __init__(self, wipeTable=False):
         super(EspnSpider, self).__init__()
-        self.allowed_domains = ['espn.go.com']
+        self.allowed_domains = [
+            'espn.go.com', 'games.espn.go.com', 'games.espn.com'
+        ]
         self.leagueid = settings.get('LEAGUE_ID')
         self.start_urls = [
             "http://games.espn.go.com/ffl/tools/projections?&leagueId={}".format(self.leagueid)
@@ -47,6 +49,7 @@ class EspnSpider(scrapy.Spider):
             wipe_raw_data(source=self.name)
 
     def parse(self, response):
+        logger.info('parsing url {}'.format(response.url))
         playerrows = response.xpath('//tr[contains(@class, "pncPlayerRow")]')
         for player in playerrows:
             item = FflDataScraperItem()
